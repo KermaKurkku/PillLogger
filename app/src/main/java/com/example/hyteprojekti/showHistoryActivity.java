@@ -2,7 +2,9 @@ package com.example.hyteprojekti;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 public class showHistoryActivity extends AppCompatActivity {
 
@@ -14,5 +16,12 @@ public class showHistoryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_history);
+    }
+
+    //Go back to main screen when pressing button
+    public void showMain(View view) {
+        Intent changeMain = new Intent(this, MainActivity.class);
+        //Show main
+        startActivity(changeMain);
     }
 }

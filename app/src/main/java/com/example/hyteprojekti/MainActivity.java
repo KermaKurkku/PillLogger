@@ -19,6 +19,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
     //Changes the view of the app to showHistoryActivity when button is pressed
     public void showHistory(View view) {
         //Creates the intent to change the view

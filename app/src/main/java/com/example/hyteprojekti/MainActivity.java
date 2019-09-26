@@ -4,9 +4,17 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+
+import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 public class MainActivity extends AppCompatActivity {
+
+    private Button historyView;
+    private Button scannerView;
+
 
 
     //TODO get camera working
@@ -17,6 +25,19 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        createButtons();
+        historyView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showHistory(view);
+            }
+        });
+        scannerView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showScanner(view);
+            }
+        });
     }
 
     @Override
@@ -29,7 +50,27 @@ public class MainActivity extends AppCompatActivity {
         //Creates the intent to change the view
         Intent changeView = new Intent(this, showHistoryActivity.class);
         //Changes the view
-        startActivity(changeView);
+        try {
+            startActivity(changeView);
+        } catch(Exception e) {
+            System.out.println("Error: "+ e.getMessage());
+            Log.d("Error", e.getMessage());
+        }
+    }
+
+    //Changes view to qrScannerActivity
+    public void showScanner(View view) {
+        Intent changeView = new Intent(this, qrScannerActivity.class);
+        try {
+            startActivity(changeView);
+         } catch (Exception e) {
+            Log.d("Error", e.getMessage());
+        }
+    }
+
+    private void createButtons() {
+        historyView = (Button) findViewById(R.id.historyButton);
+        scannerView = (Button) findViewById(R.id.scannerButton);
     }
 
 }

@@ -22,6 +22,10 @@ public class showHistoryActivity extends AppCompatActivity {
     public void showMain(View view) {
         Intent changeMain = new Intent(this, MainActivity.class);
         //Show main
-        startActivity(changeMain);
+        try {
+            startActivity(changeMain);
+        } catch (Exception e) {
+            System.out.println("Error: "+ e.getMessage());
+        }
     }
 }

@@ -1,6 +1,8 @@
 package com.example.hyteprojekti.loggable;
 
-public class Time implements Loggable {
+import java.io.Serializable;
+
+public class Time implements Loggable, Serializable {
     private int minutes;
     private int hours;
 

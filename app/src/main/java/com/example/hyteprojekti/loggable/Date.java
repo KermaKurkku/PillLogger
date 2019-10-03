@@ -1,8 +1,9 @@
 package com.example.hyteprojekti.loggable;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
-public class Date implements Loggable {
+public class Date implements Loggable, Serializable {
     private int day;
     private int month;
     private int year;

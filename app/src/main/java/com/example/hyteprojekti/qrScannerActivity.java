@@ -22,8 +22,9 @@ public class qrScannerActivity extends AppCompatActivity implements ZXingScanner
     private static final int MY_PERMISSIONS_REQUEST_CAMERA = 1;
 
     private ZXingScannerView mscannerView;
-    private TextView txtResult;
 
+
+    //TODO investigate startPreview() failing sometimes
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +36,6 @@ public class qrScannerActivity extends AppCompatActivity implements ZXingScanner
         mscannerView = new ZXingScannerView(this);
         setContentView(mscannerView);
 
-        //TODO ask for permissions
 
 
         //scanQR();

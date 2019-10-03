@@ -1,12 +1,16 @@
 package com.example.hyteprojekti;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
@@ -61,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
     //Changes view to qrScannerActivity
     public void showScanner(View view) {
         Intent changeView = new Intent(this, qrScannerActivity.class);
+        Log.d("Pressed", "Tried to activate scanner");
         try {
             startActivity(changeView);
          } catch (Exception e) {
@@ -72,5 +77,7 @@ public class MainActivity extends AppCompatActivity {
         historyView = (Button) findViewById(R.id.historyButton);
         scannerView = (Button) findViewById(R.id.scannerButton);
     }
+
+
 
 }

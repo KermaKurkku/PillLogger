@@ -1,24 +1,25 @@
 package com.example.hyteprojekti;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.zxing.Result;
-import com.karumi.dexter.Dexter;
-import com.karumi.dexter.PermissionToken;
-import com.karumi.dexter.listener.PermissionDeniedResponse;
-import com.karumi.dexter.listener.PermissionGrantedResponse;
-import com.karumi.dexter.listener.PermissionRequest;
-import com.karumi.dexter.listener.single.PermissionListener;
+
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 public class qrScannerActivity extends AppCompatActivity implements ZXingScannerView.ResultHandler {
+
+    private static final int MY_PERMISSIONS_REQUEST_CAMERA = 1;
 
     private ZXingScannerView mscannerView;
     private TextView txtResult;
@@ -28,48 +29,50 @@ public class qrScannerActivity extends AppCompatActivity implements ZXingScanner
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //Request permissions
+        checkPermissions();
         //Init
-        mscannerView = findViewById(R.id.zxscan);
-        txtResult = findViewById(R.id.txt_result);
+        mscannerView = new ZXingScannerView(this);
+        setContentView(mscannerView);
 
         //TODO ask for permissions
-        
 
 
-        //Request permission
-        /*
-        Dexter.withActivity(this)
-                .withPermission(Manifest.permission.CAMERA)
-                .withListener(new PermissionListener() {
-                    @Override
-                    public void onPermissionGranted(PermissionGrantedResponse response) {
-                        scanQR();
-                    }
+        //scanQR();
 
-                    @Override
-                    public void onPermissionDenied(PermissionDeniedResponse response) {
-                        Toast.makeText(qrScannerActivity.this, "You must accept this permission", Toast.LENGTH_SHORT).show();
-
-                    }
-
-                    @Override
-                    public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {
-
-                    }
-                })
-                .check();
-         */
 
 
 
     }
 
-    private void scanQR() {
+
+    //Activate scanner
+    public void scanQR() {
+        mscannerView.setResultHandler(qrScannerActivity.this);
         try {
-            mscannerView.setResultHandler(qrScannerActivity.this);
             mscannerView.startCamera();
         } catch (Exception e) {
-            Log.d("Error", e.getMessage());
+            Log.d("Error starting camera: ", e.getMessage());
+        }
+    }
+
+    //Check if the program has needed permissions for the camera, if not then ask permissions
+    private void checkPermissions() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.CAMERA}, MY_PERMISSIONS_REQUEST_CAMERA);
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mscannerView.setResultHandler(this);
+        try {
+            mscannerView.startCamera();
+        } catch (Exception e) {
+            Log.d("Error starting camera: ", e.getMessage());
         }
     }
 
@@ -95,9 +98,14 @@ public class qrScannerActivity extends AppCompatActivity implements ZXingScanner
         super.onDestroy();
     }
 
+
+
     @Override
     public void handleResult(Result rawResult) {
         //Here we can receive rawResult
-        txtResult.setText(rawResult.getText());
+        String result = rawResult.getText();
+        Intent i = new Intent(qrScannerActivity.this, ResultScreen.class);
+        i.putExtra("Result", result);
+        startActivity(i);
     }
 }

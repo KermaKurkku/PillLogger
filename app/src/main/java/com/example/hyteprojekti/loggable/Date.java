@@ -7,7 +7,7 @@ public class Date implements Loggable, Serializable {
     private int day;
     private int month;
     private int year;
-    private java.text.SimpleDateFormat df = new java.text.SimpleDateFormat("MM");
+    private transient java.text.SimpleDateFormat df = new java.text.SimpleDateFormat("MM");
 
     public Date(int day, int month, int year) {
 

@@ -14,23 +14,21 @@ public class showHistoryActivity extends AppCompatActivity {
     //TODO collect data
     //TODO show collected data as list or graph
 
-    private Button testButton1;
-    private Button testButton2;
+    private Button testButton1, testButton2, clearButton;
 
-    private TimestampLog log;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_history);
-
-        log = new TimestampLog();
+        TimestampLog.getInstance().readFromfile(this);
+        TimestampLog.getInstance().initializeLog();
 
         testButton1 = findViewById(R.id.addButton);
         testButton1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                log.addStamp();
+                TimestampLog.getInstance().addStamp();
                 Log.d("Pressed", "Added stamp");
             }
         });
@@ -39,11 +37,45 @@ public class showHistoryActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Log.d("Pressed", "Printed stamps");
-                log.printStamps();
+                TimestampLog.getInstance().printStamps();
+            }
+        });
+
+        clearButton = findViewById(R.id.clearButton);
+        clearButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TimestampLog.getInstance().clearLog(showHistoryActivity.this);
             }
         });
 
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        TimestampLog.getInstance().readFromfile(this);
+    }
+
+    @Override
+    protected void onPause() {
+        //TimestampLog.getInstance().savetoFile(this);
+        super.onPause();
+
+    }
+
+    @Override
+    protected void onStop() {
+        TimestampLog.getInstance().savetoFile(this);
+        super.onStop();
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        //TimestampLog.getInstance().savetoFile(this);
+        super.onDestroy();
     }
 
     //Go back to main screen when pressing button

@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         createButtons();
         historyView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,6 +48,25 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        //TimestampLog.getInstance().readFromfile(this);
+    }
+
+    @Override
+    protected void onPause() {
+        //TimestampLog.getInstance().savetoFile(this);
+        super.onPause();
+    }
+
+    @Override
+    protected void onStop() {
+        TimestampLog.getInstance().savetoFile(this);
+        super.onStop();
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 
     //Changes the view of the app to showHistoryActivity when button is pressed
@@ -77,6 +97,10 @@ public class MainActivity extends AppCompatActivity {
         historyView = (Button) findViewById(R.id.historyButton);
         scannerView = (Button) findViewById(R.id.scannerButton);
     }
+
+
+
+
 
 
 

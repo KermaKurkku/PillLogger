@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -65,6 +66,19 @@ public class qrScannerActivity extends AppCompatActivity implements ZXingScanner
         }
     }
 
+    public Boolean wrongDate(String checkabble) {
+        DateChecker dateChecker = new DateChecker();
+        if (!(dateChecker.checkdate(checkabble))) {
+            Toast error = Toast.makeText(this, "Väärä päivä!", Toast.LENGTH_SHORT);
+            error.setGravity(Gravity.CENTER, 0, 0);
+            error.show();
+            return true;
+        }
+        return false;
+    }
+
+
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -103,6 +117,14 @@ public class qrScannerActivity extends AppCompatActivity implements ZXingScanner
     @Override
     public void handleResult(Result rawResult) {
         //Here we can receive rawResult
+
+        if (wrongDate(rawResult.getText())) {
+            scanQR();
+            return;
+        }
+
+
+
         String result = rawResult.getText();
         Intent i = new Intent(qrScannerActivity.this, ResultScreen.class);
         i.putExtra("Result", result);

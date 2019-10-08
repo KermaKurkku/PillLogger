@@ -6,13 +6,17 @@ import androidx.core.content.ContextCompat;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
+
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        TimestampLog.getInstance().initializeLog();
+        TimestampLog.getInstance().readFromfile(this);
 
         createButtons();
         historyView.setOnClickListener(new View.OnClickListener() {
@@ -40,10 +46,19 @@ public class MainActivity extends AppCompatActivity {
         scannerView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showScanner(view);
+                if (TimestampLog.getInstance().checkDate()) {
+                    Toast error = Toast.makeText(MainActivity.this, "Olet ottanut jo lääkkeet", Toast.LENGTH_LONG);
+                    error.setGravity(Gravity.CENTER, 0, 0);
+                    error.show();
+                } else {
+                    showScanner(view);
+                }
             }
         });
     }
+
+
+
 
     @Override
     protected void onResume() {
@@ -59,7 +74,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onStop() {
-        TimestampLog.getInstance().savetoFile(this);
         super.onStop();
 
     }

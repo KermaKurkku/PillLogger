@@ -3,6 +3,9 @@ package com.example.hyteprojekti.loggable;
 import java.io.Serializable;
 
 public class Time implements Loggable, Serializable {
+
+    public static final long serialVersionUID = -356888365442792143L;
+
     private int minutes;
     private int hours;
 
@@ -12,6 +15,16 @@ public class Time implements Loggable, Serializable {
     }
 
     public int getMinutes() {
+        return minutes;
+    }
+
+    public String getMinuteFormat() {
+        String minutes;
+        if (this.minutes < 10) {
+            minutes = "0"+ Integer.toString(this.minutes);
+        }
+        minutes = Integer.toString(this.minutes);
+
         return minutes;
     }
 
@@ -29,6 +42,6 @@ public class Time implements Loggable, Serializable {
 
     @Override
     public String toString() {
-        return this.hours+ ":"+ this.minutes;
+        return this.hours+ ":"+ getMinuteFormat();
     }
 }

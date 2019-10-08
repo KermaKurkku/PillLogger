@@ -17,6 +17,10 @@ public class ResultScreen extends AppCompatActivity {
     private TextView scanResult;
     private TextView stamp;
 
+    /**
+     * Creates a view for viewing scanned qr result
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

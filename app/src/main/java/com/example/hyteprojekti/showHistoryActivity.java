@@ -15,7 +15,7 @@ import com.example.hyteprojekti.loggable.Timestamp;
 import java.util.ArrayList;
 
 /**
- * Tässä luodaan listanäkymä logitiedoista
+ * Here we create a ListView of the log
  * @author Vilho
  *
  */
@@ -28,7 +28,10 @@ public class showHistoryActivity extends AppCompatActivity {
     private ListView lv;
 
 
-
+    /**
+     * Creates a view for viewing the log through ListView
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -15,11 +15,12 @@ import java.io.Serializable;;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-/**
- * @author Jere
- */
+
 
 class TimestampLog {
+    /**
+     * @author Jere
+     */
     private static final TimestampLog ourInstance = new TimestampLog();
 
     private ArrayList<Timestamp> log;

@@ -15,12 +15,14 @@ import java.io.Serializable;;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-
+/**
+ * Singleton class for handling the log of the app.
+ * Used for saving and reading the file.
+ * @author Jere
+ */
 
 class TimestampLog {
-    /**
-     * @author Jere
-     */
+
     private static final TimestampLog ourInstance = new TimestampLog();
 
     private ArrayList<Timestamp> log;
@@ -36,7 +38,6 @@ class TimestampLog {
     /**
      * Creates a new log if value is null
      */
-    //Create a new log if one doess not exist
     public void initializeLog() {
         if (this.log == null)
             this.log = new ArrayList<>();
@@ -46,7 +47,6 @@ class TimestampLog {
      * Set the value of the log to be another List
      * @param settable value of the List to be set
      */
-    //Set the value of the log separately
     public void setLog(ArrayList<Timestamp> settable) {
         this.log = settable;
     }
@@ -71,7 +71,6 @@ class TimestampLog {
      * Check if this date has already been logged
      * @return true if already logged
      */
-    //Check if this date has already been logged
     public Boolean checkDate() {
         if (isEmpty())
             return false;
@@ -88,7 +87,6 @@ class TimestampLog {
      * Returns the log
      * @return log
      */
-    // Return the log List
     public ArrayList<Timestamp> getLog() {
         return this.log;
     }
@@ -137,6 +135,7 @@ class TimestampLog {
      * Clears the log
      * @param context context for saving the cleared log to file
      */
+
     public void clearLog(Context context) {
         this.log.clear();
         savetoFile(context);
@@ -164,6 +163,8 @@ class TimestampLog {
         initializeLog();
 
         FileOutputStream fileOutputStream;
+        /*  Tries to save the file. If file cannot be saved prints Exception
+        */
         try {
             fileOutputStream = new FileOutputStream(new File(context.getFilesDir()+"/log.ser"));
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
@@ -183,6 +184,9 @@ class TimestampLog {
     public void readFromfile(Context context) {
         ArrayList<Timestamp> settable = null;
 
+        /*  Tries to open and read the file previously saved
+            If File cannot be opened creates a new empty list and prints Exception
+         */
 
         try {
             FileInputStream fileInputStream = context.openFileInput("log.ser");
@@ -195,11 +199,13 @@ class TimestampLog {
 
         } catch (IOException e) {
             e.printStackTrace();
-
+            initializeLog();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
+            initializeLog();
         } catch (NullPointerException e) {
             e.printStackTrace();
+            initializeLog();
         }
 
     }

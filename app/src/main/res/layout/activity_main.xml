@@ -6,6 +6,9 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <include
+        android:id="@+id/mainBar"
+        layout="@layout/toolbar" />
     <Button
         android:id="@+id/scannerButton"
         android:layout_width="226dp"

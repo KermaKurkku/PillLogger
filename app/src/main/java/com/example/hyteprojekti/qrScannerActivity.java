@@ -18,6 +18,12 @@ import com.google.zxing.Result;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
+/**
+ * QrScannerActivity uses ZXingScanner libnrary (https://github.com/zxing/zxing)
+ * for creating a qr scanner.
+ * @author Jere Salmensaari
+ */
+
 public class qrScannerActivity extends AppCompatActivity implements ZXingScannerView.ResultHandler {
 
     private static final int MY_PERMISSIONS_REQUEST_CAMERA = 1;
@@ -27,6 +33,10 @@ public class qrScannerActivity extends AppCompatActivity implements ZXingScanner
 
     //TODO investigate startPreview() failing sometimes
 
+    /**
+     * Creates the qr scanner on first start
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,8 +56,9 @@ public class qrScannerActivity extends AppCompatActivity implements ZXingScanner
 
     }
 
-
-    //Activate scanner
+    /**
+     * Activates the scanner independent of onCreate()
+     */
     public void scanQR() {
         mscannerView.setResultHandler(qrScannerActivity.this);
         try {
@@ -57,7 +68,10 @@ public class qrScannerActivity extends AppCompatActivity implements ZXingScanner
         }
     }
 
-    //Check if the program has needed permissions for the camera, if not then ask permissions
+    /**
+     * Checks if the program has needed permissions to use the scanner.
+     * If not then asks for permission. Perissions needed: CAMERA
+     */
     private void checkPermissions() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -66,6 +80,11 @@ public class qrScannerActivity extends AppCompatActivity implements ZXingScanner
         }
     }
 
+    /**
+     * Checks if qr scanned is the right one for this date
+     * @param checkabble    QR result to be checked
+     * @return true         if checkabble is wrong for this date, false if date is good
+     */
     public Boolean wrongDate(String checkabble) {
         DateChecker dateChecker = new DateChecker();
         if (!(dateChecker.checkdate(checkabble))) {
@@ -78,7 +97,9 @@ public class qrScannerActivity extends AppCompatActivity implements ZXingScanner
     }
 
 
-
+    /**
+     * Starts the camera on resume to the program
+     */
     @Override
     protected void onResume() {
         super.onResume();
@@ -90,6 +111,9 @@ public class qrScannerActivity extends AppCompatActivity implements ZXingScanner
         }
     }
 
+    /**
+     * Stops the camera on pausing the program
+     */
     @Override
     protected void onPause() {
         if (mscannerView!=null)
@@ -97,7 +121,9 @@ public class qrScannerActivity extends AppCompatActivity implements ZXingScanner
         super.onPause();
     }
 
-
+    /**
+     * Stops the camera on stopping the program
+     */
     @Override
     protected void onStop() {
         if (mscannerView!=null)
@@ -105,6 +131,9 @@ public class qrScannerActivity extends AppCompatActivity implements ZXingScanner
         super.onStop();
     }
 
+    /**
+     * Stops the camera on program being destroyed
+     */
     @Override
     protected void onDestroy() {
         if (mscannerView!=null)
@@ -113,7 +142,12 @@ public class qrScannerActivity extends AppCompatActivity implements ZXingScanner
     }
 
 
-
+    /**
+     * Handles the result of the QR scan. Checks if the date is wrong before starting ResultActivity.
+     * If date is wrong, starts the scanner again. If not then starts the ResultActivity and sends the
+     * result to it.
+     * @param rawResult the result of the QR scan
+     */
     @Override
     public void handleResult(Result rawResult) {
         //Here we can receive rawResult

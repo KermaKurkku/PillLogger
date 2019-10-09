@@ -24,6 +24,7 @@ import me.dm7.barcodescanner.zxing.ZXingScannerView;
 /**
  * Main activity of the app. Handles moving to the scanner and history activities.
  * @author Jere Salmensaari
+ * @version 1.0
  */
 
 public class MainActivity extends AppCompatActivity {

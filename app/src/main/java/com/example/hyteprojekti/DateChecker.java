@@ -10,7 +10,7 @@ import java.util.Calendar;
  */
 
 public class DateChecker {
-    String[] dates = {"Sunnuntai", "Maanantai", "Tiistai", "Keskiviikko",
+    private String[] dates = {"Sunnuntai", "Maanantai", "Tiistai", "Keskiviikko",
                 "Torstai", "Perjantai", "Lauantai"};
 
     public DateChecker() {
@@ -21,7 +21,7 @@ public class DateChecker {
      * @param checkabble    date to be checked
      * @return true         if date is of the correct format, otherwise false
      */
-    public Boolean checkdate(String checkabble) {
+    public boolean checkdate(String checkabble) {
         String todayDate = dates[Calendar.getInstance().get(Calendar.DAY_OF_WEEK) -1];
         Log.d("Todays date", todayDate);
         if (todayDate.equals(checkabble))

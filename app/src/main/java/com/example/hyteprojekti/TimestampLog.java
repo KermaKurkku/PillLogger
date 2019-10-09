@@ -71,7 +71,7 @@ class TimestampLog {
      * Check if this date has already been logged
      * @return true if already logged
      */
-    public Boolean checkDate() {
+    public boolean checkDate() {
         if (isEmpty())
             return false;
         int lastLog = this.log.get(this.log.size()-1).getDay();
@@ -95,7 +95,7 @@ class TimestampLog {
      * Checks if the list is empty or null
      * @return true if empty or null, otherwise false
      */
-    public Boolean isEmpty() {
+    public boolean isEmpty() {
         if (this.log.isEmpty() || this.log == null) {
             return true;
         }

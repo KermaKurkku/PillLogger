@@ -96,6 +96,28 @@ public class qrScannerActivity extends AppCompatActivity implements ZXingScanner
         return false;
     }
 
+    /**
+     * Handles the result of the QR scan. Checks if the date is wrong before starting ResultActivity.
+     * If date is wrong, starts the scanner again. If not then starts the ResultActivity and sends the
+     * result to it.
+     * @param rawResult the result of the QR scan
+     */
+    @Override
+    public void handleResult(Result rawResult) {
+        //Here we can receive rawResult
+
+        if (wrongDate(rawResult.getText())) {
+            scanQR();
+            return;
+        }
+
+
+
+        String result = rawResult.getText();
+        Intent i = new Intent(qrScannerActivity.this, ResultScreen.class);
+        i.putExtra("Result", result);
+        startActivity(i);
+    }
 
     /**
      * Starts the camera on resume to the program
@@ -142,26 +164,5 @@ public class qrScannerActivity extends AppCompatActivity implements ZXingScanner
     }
 
 
-    /**
-     * Handles the result of the QR scan. Checks if the date is wrong before starting ResultActivity.
-     * If date is wrong, starts the scanner again. If not then starts the ResultActivity and sends the
-     * result to it.
-     * @param rawResult the result of the QR scan
-     */
-    @Override
-    public void handleResult(Result rawResult) {
-        //Here we can receive rawResult
 
-        if (wrongDate(rawResult.getText())) {
-            scanQR();
-            return;
-        }
-
-
-
-        String result = rawResult.getText();
-        Intent i = new Intent(qrScannerActivity.this, ResultScreen.class);
-        i.putExtra("Result", result);
-        startActivity(i);
-    }
 }

@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 public class Time implements Loggable, Serializable {
 
-    public static final long serialVersionUID = -356888365442792143L;
+    private static final long serialVersionUID = -356888365442792143L;
 
     private int minutes;
     private int hours;

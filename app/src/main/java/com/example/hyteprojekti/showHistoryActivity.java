@@ -30,7 +30,6 @@ public class showHistoryActivity extends AppCompatActivity {
 
 
 
-    private Button testButton1, testButton2, clearButton;
     private ListView lv;
 
 
@@ -118,12 +117,7 @@ public class showHistoryActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        Log.d("onResume", "resumed");
-        //TimestampLog.getInstance().readFromfile(this);
-    }
+
 
     @Override
     protected void onPause() {

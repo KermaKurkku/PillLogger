@@ -9,7 +9,7 @@
     tools:context=".showHistoryActivity">
 
     <include
-        android:id="@+id/toolbar"
+        android:id="@+id/historyBar"
         layout="@layout/toolbar" />
 
     <ListView
@@ -20,6 +20,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+        app:layout_constraintTop_toBottomOf="@+id/historyBar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

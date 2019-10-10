@@ -15,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
+import com.example.hyteprojekti.loggable.Date;
 import com.example.hyteprojekti.loggable.Timestamp;
 
 import java.util.ArrayList;
@@ -44,7 +45,7 @@ public class showHistoryActivity extends AppCompatActivity {
         //TimestampLog.getInstance().readFromfile(this);
         //TimestampLog.getInstance().initializeLog();
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.historyBar);
         setSupportActionBar(toolbar);
 
         if (getSupportActionBar() != null) {
@@ -101,9 +102,10 @@ public class showHistoryActivity extends AppCompatActivity {
      */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        DateChecker dt = new DateChecker();
         switch (item.getItemId()) {
             case R.id.addItem:
-                TimestampLog.getInstance().addStamp("Torstai");
+                TimestampLog.getInstance().addStamp(dt.returnDate());
                 updateUI();
                 return true;
 

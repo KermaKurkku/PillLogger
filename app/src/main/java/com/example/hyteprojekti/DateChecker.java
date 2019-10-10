@@ -29,4 +29,12 @@ public class DateChecker {
 
         return false;
     }
+
+    /**
+     * Returns the name of the date
+     * @return date name of date
+     */
+    public String returnDate() {
+        return dates[Calendar.getInstance().get(Calendar.DAY_OF_WEEK) -1];
+    }
 }

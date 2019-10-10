@@ -11,18 +11,18 @@
         android:id="@+id/resultBar"
         layout="@layout/toolbar" />
 
+
     <TextView
         android:id="@+id/scanResult"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="148dp"
+        android:layout_marginTop="48dp"
         android:gravity="center"
         android:text="Lääkkeet otettu!"
         android:textSize="40sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
+        app:layout_constraintTop_toBottomOf="@+id/resultBar" />
 
     <TextView
         android:id="@+id/stampView"
@@ -38,7 +38,7 @@
         android:id="@+id/imageView"
         android:layout_width="0dp"
         android:layout_height="359dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:layout_marginBottom="46dp"
         app:layout_constraintBottom_toTopOf="@+id/stampView"
         app:layout_constraintEnd_toEndOf="parent"
